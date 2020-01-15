@@ -5,6 +5,7 @@
 
 trigger:
 - master
+- releases/*
 
 pool:
   vmImage: 'windows-latest'
@@ -28,7 +29,8 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
+  displayName: 'Test'
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'test'
+    projects: '**/*.Tests.csproj'
